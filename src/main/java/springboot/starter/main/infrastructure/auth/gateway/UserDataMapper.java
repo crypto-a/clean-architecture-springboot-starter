@@ -23,17 +23,30 @@ public class UserDataMapper
     @Column(name="password_hash", nullable = false)
     private String passwordHash;
 
+    @Column(name = "isEmailVerified", nullable = false)
+    private Boolean isEmailVerified;
+
 
     // Constructors
     public UserDataMapper()
     {
     }
 
-    public UserDataMapper(String email, String username, String passwordHash)
+    public UserDataMapper(String email, String username, String passwordHash, Boolean isEmailVerified)
     {
         this.email = email;
         this.username = username;
         this.passwordHash = passwordHash;
+        this.isEmailVerified = isEmailVerified;
+    }
+
+    public UserDataMapper(Long id, String email, String username, String passwordHash, Boolean isEmailVerified)
+    {
+        this.id = id;
+        this.email = email;
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.isEmailVerified = isEmailVerified;
     }
 
     public Long getId()
@@ -56,4 +69,13 @@ public class UserDataMapper
         return passwordHash;
     }
 
+    public Boolean getEmailVerified()
+    {
+        return isEmailVerified;
+    }
+
+    public void setEmailVerified(Boolean emailVerified)
+    {
+        isEmailVerified = emailVerified;
+    }
 }

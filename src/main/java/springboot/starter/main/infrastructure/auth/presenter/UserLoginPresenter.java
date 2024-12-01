@@ -1,11 +1,11 @@
 package springboot.starter.main.infrastructure.auth.presenter;
 
-import springboot.starter.main.shared.error.ErrorResponse;
-import springboot.starter.main.usecase.auth.dto.UserLoginResponseModel;
-import springboot.starter.main.usecase.auth.login.UserLoginOutputBoundary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import springboot.starter.main.shared.error.ErrorResponse;
+import springboot.starter.main.usecase.auth.dto.UserLoginResponseModel;
+import springboot.starter.main.usecase.auth.login.UserLoginOutputBoundary;
 
 @Component
 public class UserLoginPresenter implements UserLoginOutputBoundary
@@ -17,7 +17,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary
     {
         UserLoginResponseModel userLoginResponseModel = new UserLoginResponseModel(
                 authToken,
-                 username,
+                username,
                 "Login Successful!"
         );
 
@@ -33,6 +33,16 @@ public class UserLoginPresenter implements UserLoginOutputBoundary
         );
 
         this.responseEntity = ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+    }
+
+    @Override
+    public void prepareEmailNotVerifiedView(String errorMessage)
+    {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "EmailNotVerified",
+                errorMessage
+        );
+        this.responseEntity = ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
     }
 
     public ResponseEntity<?> getResponseEntity()
