@@ -4,6 +4,7 @@ public class User
 {
 
     // properties
+    private Long id;
     private final String email;
     private final String username;
     private final String passwordHash;
@@ -19,12 +20,23 @@ public class User
     }
 
     // constructor for db
-    public User(String email, String username, String passwordHash, boolean isEmailVerified)
+    public User(Long id, String email, String username, String passwordHash, boolean isEmailVerified)
     {
+        this.id = id;
         this.email = email;
         this.username = username;
         this.passwordHash = passwordHash;
         this.isEmailVerified = isEmailVerified;
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
     }
 
     public String getEmail()

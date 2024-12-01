@@ -1,11 +1,13 @@
 package springboot.starter.main.usecase.auth.login;
-import springboot.starter.main.infrastructure.security.exception.InvalidCredentialsException;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import springboot.starter.main.entity.user.User;
 import springboot.starter.main.infrastructure.auth.gateway.UserAuthDsGateway;
 import springboot.starter.main.infrastructure.security.JWTUtils;
+import springboot.starter.main.infrastructure.security.exception.InvalidCredentialsException;
 import springboot.starter.main.shared.validation.EmailValidator;
 import springboot.starter.main.usecase.auth.dto.UserLoginRequestModel;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.util.Map;
 
 
@@ -35,7 +37,8 @@ public class UserLoginInteractor implements UserLoginInputBoundary
 
         User user;
 
-        try {
+        try
+        {
             // Fetch user by email or username
             user = fetchUserByUsernameOrEmail(usernameOrEmail);
         } catch (InvalidCredentialsException e)
@@ -45,8 +48,16 @@ public class UserLoginInteractor implements UserLoginInputBoundary
         }
 
         // Validate the password
-        if (!passwordEncoder.matches(requestModel.getPassword(), user.getPasswordHash())) {
+        if (!passwordEncoder.matches(requestModel.getPassword(), user.getPasswordHash()))
+        {
             presenter.prepareInvalidCredentialsView("Invalid username/email or password.");
+            return;
+        }
+
+        // Add this check before generating the JWT token
+        if (!user.isEmailVerified())
+        {
+            presenter.prepareEmailNotVerifiedView("Email not verified. Please verify your email before logging in.");
             return;
         }
 
@@ -57,7 +68,8 @@ public class UserLoginInteractor implements UserLoginInputBoundary
         presenter.prepareSuccessView(authToken, user.getUsername());
     }
 
-    private User fetchUserByUsernameOrEmail(String usernameOrEmail) {
+    private User fetchUserByUsernameOrEmail(String usernameOrEmail)
+    {
         if (EmailValidator.isValid(usernameOrEmail))
         {
             return userAuthDsGateway.findByEmail(usernameOrEmail)

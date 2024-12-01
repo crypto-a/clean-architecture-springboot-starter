@@ -1,0 +1,9 @@
+Hello {{ username }},
+
+Welcome to our platform! We're excited to have you on board.
+
+Click the link below to confirm your email:
+{{ confirmation_link }}
+
+Thank you,
+The Team

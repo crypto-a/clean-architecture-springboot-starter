@@ -40,6 +40,15 @@ public class UserDataMapper
         this.isEmailVerified = isEmailVerified;
     }
 
+    public UserDataMapper(Long id, String email, String username, String passwordHash, Boolean isEmailVerified)
+    {
+        this.id = id;
+        this.email = email;
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.isEmailVerified = isEmailVerified;
+    }
+
     public Long getId()
     {
         return id;
