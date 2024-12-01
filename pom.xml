@@ -8,11 +8,11 @@
 		<version>3.3.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>chat.ping</groupId>
+	<groupId>springboot.start</groupId>
 	<artifactId>main</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>main</name>
-	<description>Project for Chat App (Backend)</description>
+	<description>Starter Project for Backend</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -64,7 +64,7 @@
 <!--		</dependency>-->
 <!--		<dependency>-->
 <!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-actuator</artifactId>-->
+<!--			<artifactId>springboot-boot-starter-actuator</artifactId>-->
 <!--		</dependency>-->
 
 
@@ -86,17 +86,17 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!--		&lt;!&ndash; Dependencies for testing &ndash;&gt;-->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.security</groupId>-->
-<!--			<artifactId>spring-security-test</artifactId>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.mockito</groupId>-->
-<!--			<artifactId>mockito-core</artifactId>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
+		<!-- Dependencies for testing -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- Swagger UI for API's-->
 		<dependency>
@@ -105,19 +105,19 @@
 			<version>2.1.0</version>
 		</dependency>
 
-<!--		&lt;!&ndash; Spring Boot Test Starter &ndash;&gt;-->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-test</artifactId>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
+		<!-- Spring Boot Test Starter -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-<!--		&lt;!&ndash; JUnit Jupiter (part of Spring Boot Starter Test) &ndash;&gt;-->
-<!--		<dependency>-->
-<!--			<groupId>org.junit.jupiter</groupId>-->
-<!--			<artifactId>junit-jupiter</artifactId>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
+		<!-- JUnit Jupiter (part of Spring Boot Starter Test) -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
