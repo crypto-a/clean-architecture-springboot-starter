@@ -34,7 +34,8 @@ public class JpaUserGateway implements UserAuthDsGateway
                 .map(userDataMapper -> new User(
                         userDataMapper.getEmail(),
                         userDataMapper.getUsername(),
-                        userDataMapper.getPasswordHash()
+                        userDataMapper.getPasswordHash(),
+                        userDataMapper.getEmailVerified()
                 ));
     }
 
@@ -45,14 +46,21 @@ public class JpaUserGateway implements UserAuthDsGateway
                 .map(userDataMapper -> new User(
                         userDataMapper.getEmail(),
                         userDataMapper.getUsername(),
-                        userDataMapper.getPasswordHash()
+                        userDataMapper.getPasswordHash(),
+                        userDataMapper.getEmailVerified()
                 ));
     }
 
     @Override
     public void save(User user)
     {
-        UserDataMapper userDataMapper = new UserDataMapper(user.getEmail(), user.getUsername(), user.getPasswordHash());
+        UserDataMapper userDataMapper = new UserDataMapper(
+                user.getEmail(),
+                user.getUsername(),
+                user.getPasswordHash(),
+                user.isEmailVerified()
+        );
+
         userRepository.save(userDataMapper);
     }
 }
