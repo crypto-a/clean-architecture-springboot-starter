@@ -11,4 +11,10 @@ public class HelloWorldController
     {
         return "Hello, World!";
     }
+
+    @GetMapping("/api/hello-secured/")
+    public String helloSecured()
+    {
+        return "Hello, Secured!";
+    }
 }

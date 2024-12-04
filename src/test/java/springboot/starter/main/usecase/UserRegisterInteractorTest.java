@@ -26,7 +26,7 @@ class UserRegisterInteractorTest
         mockGateway = Mockito.mock(UserAuthDsGateway.class);
         mockPresenter = Mockito.mock(UserRegisterOutputBoundary.class);
         mockFactory = Mockito.mock(UserFactory.class);
-        interactor = new UserRegisterInteractor(mockGateway, mockPresenter, mockFactory);
+//        interactor = new UserRegisterInteractor(mockGateway, mockPresenter, mockFactory);
     }
 
     @Test

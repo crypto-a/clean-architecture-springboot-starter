@@ -14,17 +14,24 @@ public class UserDataMapper
     @Column(name = "user_id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name="username", nullable = false, unique = true)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name="email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name="password_hash", nullable = false)
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
     @Column(name = "isEmailVerified", nullable = false)
     private Boolean isEmailVerified;
+
+    // Oauth Fields
+    @Column(name = "oauth_provider")
+    private String oauthProvider;
+
+    @Column(name = "oauth_provider_id")
+    private String oauthProviderId;
 
 
     // Constructors
@@ -47,6 +54,39 @@ public class UserDataMapper
         this.username = username;
         this.passwordHash = passwordHash;
         this.isEmailVerified = isEmailVerified;
+    }
+
+    // Constructor for OAuth
+    public UserDataMapper(String email, String username, String passwordHash, Boolean isEmailVerified,
+                          String oauthProvider, String oauthProviderId)
+    {
+        this.email = email;
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.isEmailVerified = isEmailVerified;
+        this.oauthProvider = oauthProvider;
+        this.oauthProviderId = oauthProviderId;
+    }
+
+
+    public String getOauthProvider()
+    {
+        return oauthProvider;
+    }
+
+    public void setOauthProvider(String oauthProvider)
+    {
+        this.oauthProvider = oauthProvider;
+    }
+
+    public String getOauthProviderId()
+    {
+        return oauthProviderId;
+    }
+
+    public void setOauthProviderId(String oauthProviderId)
+    {
+        this.oauthProviderId = oauthProviderId;
     }
 
     public Long getId()

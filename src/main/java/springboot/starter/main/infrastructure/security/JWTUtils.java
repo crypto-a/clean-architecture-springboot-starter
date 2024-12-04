@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -25,11 +26,17 @@ public class JWTUtils
     @Value("${jwt.expiration}")
     private long jwtExpiration;
 
-    public String generateToken(@NotNull String username,  Map<String, Object> claims)
+    public String generateToken(String subject, Map<String, Object> claims)
     {
+
+        if (claims == null)
+        {
+            claims = new HashMap<>();
+        }
+
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(username)
+                .setSubject(subject)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
                 .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret)), SignatureAlgorithm.HS256)

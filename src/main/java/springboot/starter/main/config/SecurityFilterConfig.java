@@ -1,6 +1,9 @@
 package springboot.starter.main.config;
 
 
+import springboot.starter.main.infrastructure.oauth2.CustomOAuth2UserService;
+import springboot.starter.main.infrastructure.oauth2.OAuth2AuthenticationFailureHandler;
+import springboot.starter.main.infrastructure.oauth2.OAuth2AuthenticationSuccessHandler;
 import springboot.starter.main.infrastructure.security.JWTAuthFilter;
 import springboot.starter.main.infrastructure.security.UserDetailsServiceImplementation;
 import org.springframework.context.annotation.Bean;
@@ -21,12 +24,24 @@ public class SecurityFilterConfig
     private final JWTAuthFilter jwtAuthFilter;
     private final UserDetailsServiceImplementation userDetailsService;
     private final PasswordEncoder passwordEncoder;
+    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+    private final CustomOAuth2UserService customOAuth2UserService;
 
-    public SecurityFilterConfig(JWTAuthFilter jwtAuthFilter, UserDetailsServiceImplementation userDetailsService, PasswordEncoder passwordEncoder)
-    {
+
+    public SecurityFilterConfig(JWTAuthFilter jwtAuthFilter,
+                                UserDetailsServiceImplementation userDetailsService,
+                                PasswordEncoder passwordEncoder,
+                                OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler,
+                                OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler,
+                                CustomOAuth2UserService customOAuth2UserService
+    ) {
         this.jwtAuthFilter = jwtAuthFilter;
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
+        this.oAuth2AuthenticationSuccessHandler = oAuth2AuthenticationSuccessHandler;
+        this.oAuth2AuthenticationFailureHandler = oAuth2AuthenticationFailureHandler;
+        this.customOAuth2UserService = customOAuth2UserService;
     }
 
     @Bean
@@ -40,6 +55,13 @@ public class SecurityFilterConfig
                         .requestMatchers("/api/hello").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated() // All other requests require authentication
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService)
+                        )
+                        .successHandler(oAuth2AuthenticationSuccessHandler)
+                        .failureHandler(oAuth2AuthenticationFailureHandler)
                 )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

@@ -48,7 +48,9 @@ public class JpaUserGateway implements UserAuthDsGateway
                     user.getEmail(),
                     user.getUsername(),
                     user.getPasswordHash(),
-                    user.isEmailVerified()
+                    user.isEmailVerified(),
+                    user.getOauthProvider(),
+                    user.getOauthProviderId()
             );
         }
 
